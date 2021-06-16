@@ -1,0 +1,14 @@
+.list_render {
+  list-style-type: none;
+}
+
+.contact_item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 700px;
+  align-items: center;
+  border: 2px solid grey;
+  border-radius: 4px;
+  padding-left: 5px;
+}
