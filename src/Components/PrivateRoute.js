@@ -7,23 +7,19 @@ import * as  authSelectors from '../redux/Auth/auth-selectors';
  * - Если маршрут приватный и пользователь залогинен, рендерит компонент
  * - В противном случае рендерит Redirect на /login
  */
+
 const PrivateRoute = ({
-  component: Component,
+  children,
   redirectTo,
   ...routeProps
 }) => {
-  const isAuthenticated=useSelector(authSelectors.getIsAuthenticated)
-  return (<Route
-    {...routeProps}
-    render={props =>
-      isAuthenticated ? <Component {...props} /> : <Redirect to={redirectTo} />
-    }
-  />
+  const isAuthenticated = useSelector(authSelectors.getIsAuthenticated)
+  return (
+    <Route {...routeProps}>
+      {isAuthenticated ? children : <Redirect to={redirectTo} />}
+    </Route>
   )
 };
 
-// const mapStateToProps = state => ({
-//   isAuthenticated: authSelectors.getIsAuthenticated(state),
-// });
 
 export default PrivateRoute;

@@ -8,30 +8,26 @@ import * as  authSelectors from '../redux/Auth/auth-selectors';
  * - В противном случае рендерит компонент
  */
 const PublicRoute = ({
-  component: Component,
- 
+  // component: Component,
+  children,
   redirectTo,
   ...routeProps
 }) => {
-  const isAuthenticated=useSelector(authSelectors.getIsAuthenticated)
+  const isAuthenticated = useSelector(authSelectors.getIsAuthenticated);
   return (
-     <Route
-    {...routeProps}
-    render={props =>
-      isAuthenticated && routeProps.restricted ? (
+    <Route {...routeProps}>
+      {isAuthenticated && routeProps.restricted ? (
         <Redirect to={redirectTo} />
       ) : (
-        <Component {...props} />
-      )
-    }
-  />
-  )
-}
- 
+        children
+      )}
+    </Route>)
+};
 
 
 // const mapStateToProps = state => ({
 //   isAuthenticated: authSelectors.getIsAuthenticated(state),
 // });
 
-export default PublicRoute;
+  export default PublicRoute;
+

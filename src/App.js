@@ -1,5 +1,5 @@
 import React, { Suspense,lazy, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import Container from './Components/Container/Container'
 import AppBar from './Components/AppBar'
 import * as authOperations from './redux/Auth/auth-operations'
@@ -21,19 +21,19 @@ const App = () => {
     dispatch(authOperations.getCurrentUser())
   }, [dispatch]);
 
-  return ( 
-      <Container>
-        <AppBar />
-        <Suspense fallback={<p>loading...</p>}>
-          <Switch>
-            <Route exact path="/" component={HomeView} />
-            <PublickRoute path="/register" restricted component={RegisterView} redirectTo="/contacts" />
-            <PublickRoute path="/login" restricted component={LoginView} redirectTo="/contacts" />
-            <PrivateRoute path="/contacts" component={Contacts} redirectTo="/login" />
-          </Switch>
-        </Suspense>
-      </Container>
- );
+  return (
+    <Container>
+      <AppBar />
+      <Suspense fallback={<p>loading...</p>}>
+        <Switch>
+          <PublickRoute exact path="/"><HomeView /></PublickRoute>
+          <PublickRoute path="/register" restricted redirectTo="/contacts" ><RegisterView /></PublickRoute>
+          <PublickRoute path="/login" restricted redirectTo="/contacts" ><LoginView /></PublickRoute>
+          <PrivateRoute path="/contacts" redirectTo="/login" ><Contacts /></PrivateRoute>
+        </Switch>
+      </Suspense>
+    </Container>
+  )
 }
  
 export default App;
